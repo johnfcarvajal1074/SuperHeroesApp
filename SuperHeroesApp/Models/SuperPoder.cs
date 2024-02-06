@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperHeroesApp.Models
 {
-    class SuperPoder
+    internal class SuperPoder
     {
         public string Nombre;
         public string Descripcion;

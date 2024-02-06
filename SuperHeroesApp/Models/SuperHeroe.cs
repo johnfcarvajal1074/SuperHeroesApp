@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperHeroesApp.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,18 +7,34 @@ using System.Threading.Tasks;
 
 namespace SuperHeroesApp.Models
 {
-    class SuperHeroe
+    class SuperHeroe : Heroe, ISuperHeroe
     {
-        public int id;
-        public string Nombre;
-        public string IdentSecreta;
+        private string _Nombre;
+        public int Id { get; set; } = 1;
+
+        public override string Nombre { get
+            {
+                return _Nombre;
+            }
+            set
+            {
+                _Nombre = value.Trim();
+            }
+        }
+        public string NombreEIdentidadSecreta { 
+            get
+            {
+                return $"{Nombre} ({IdentidadSecreta})";
+            }
+        }
+        public string IdentidadSecreta { get; set; }
         public string CiudadOrigen;
         public List<SuperPoder> SuperPoderes = new List<SuperPoder>();
         public bool PuedeVolar;
 
         public SuperHeroe()
         {
-            id = 1;
+            Id = 1;
             SuperPoderes = new List<SuperPoder>();
             PuedeVolar = false;
         }
@@ -27,10 +44,19 @@ namespace SuperHeroesApp.Models
             StringBuilder sb = new StringBuilder();
             foreach (var item in SuperPoderes)
             {
-                sb.AppendLine($"{Nombre} esta usando el poder {item.Nombre}!!!");
+                sb.AppendLine($"{NombreEIdentidadSecreta} esta usando el poder {item.Nombre}!!!");
             }
 
             return sb.ToString();
+        }
+
+        public override string SalvarElMundo()
+        {
+            return $"{NombreEIdentidadSecreta} ha salvado el mundo";
+        }
+        public override string SalvarLaTierra()
+        {
+            return base.SalvarLaTierra();
         }
     }
 
